@@ -1,28 +1,51 @@
 import Layout from "@/layout/Layout";
 import { useState } from "react";
+import {getNFTContract} from "@/util/getContracts";
+import {useAddress, useMintNFT} from "@thirdweb-dev/react";
+import {MintMetadata} from "@/types/mintMetadata";
 
 export default function Wallet() {
+
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [image, setImage] = useState("");
 
+    const { nft_contract } = getNFTContract();
+    const { mutate: mintNft, isLoading, error } = useMintNFT(nft_contract);
+    const address = useAddress();
+
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
     };
-
     const handleDescriptionChange = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
         setDescription(event.target.value);
     };
-
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setImage(event.target.value);
     };
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+
+        try {
+            if(name === "" || description === "" || image === "") return;
+
+            const metadata:MintMetadata = {
+                metadata: {image, name, description},
+                to: address ?? "",
+                supply: 1
+            }
+
+            mintNft(metadata);
+
+        }
+        catch (e){
+
+        }
     };
+
     return (
         <Layout>
             <div>
@@ -75,6 +98,14 @@ export default function Wallet() {
                             Mint
                         </button>
                     </form>
+                    {
+                        isLoading && <div className="text-center mt-4">Minting in progress</div>
+                    }
+                    {
+                        (error as unknown as boolean)
+                            ? <div className="text-center mt-4">Minting Error</div>
+                            : null
+                    }
                 </div>
             </div>
         </Layout>
