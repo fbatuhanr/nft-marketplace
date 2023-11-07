@@ -4,7 +4,6 @@ import { useContractMetadata } from "@thirdweb-dev/react";
 import ContractMetadata from "@/components/ContractMetadata";
 import { Metadata } from "@/types/metadata";
 
-
 const Info = () => {
 
     const { marketplace } = getMarketplaceContract();
