@@ -17,17 +17,19 @@ export default function Wallet() {
                     My NFTs
                 </h1>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 ">
+                <div className="grid grid-rows-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 ">
                     {!address && <div>No Wallet Detected...</div>}
                     {
                         isLoading
                             ? <div>Loading NFT Data...</div>
-                            : <div>{
-                                ownedNFTs &&
-                                ownedNFTs.map((nft,id) =>
-                                    <NFTCard key={id} {...nft}/>
-                                )}
-                                </div>
+                            :
+                            <>
+                                {
+                                    ownedNFTs &&
+                                    ownedNFTs.map((nft,id) =>
+                                        <NFTCard key={id} {...nft}/>
+                                    )}
+                            </>
                     }
                 </div>
             </div>

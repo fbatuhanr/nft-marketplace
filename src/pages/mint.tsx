@@ -17,9 +17,7 @@ export default function Wallet() {
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
     };
-    const handleDescriptionChange = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
+    const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDescription(event.target.value);
     };
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,10 +37,9 @@ export default function Wallet() {
             }
 
             mintNft(metadata);
-
         }
         catch (e){
-
+            console.log(`Error minting! ${e}`)
         }
     };
 
@@ -92,7 +89,7 @@ export default function Wallet() {
                             />
                         </div>
                         <button
-                            className="mt-6 bg-blue-700 text-white font-bold py-2 px-4 rounded text-center"
+                            className="w-100 mt-6 bg-blue-700 text-white font-bold py-2 px-4 rounded text-center"
                             type="submit"
                         >
                             Mint
